@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-	FaUser,
-	FaStar,
-	FaCodeBranch,
-	FaExclamationTriangle
-} from 'react-icons/fa';
 
-import Repo from './Repo.js';
 import Card from '../card/Card.js';
+import RepoProfile from '../profiles/RepoProfile.js';
 
 export default function ReposGrid({ repos }) {
 	return (
@@ -24,26 +18,12 @@ export default function ReposGrid({ repos }) {
 							login={login}
 							url={html_url}
 						>
-							<ul className='card-list'>
-								<li>
-									<FaUser color='#ffc107' size={22} />{' '}
-									<a href={`https://github.com/${login}`} target='_blank'>
-										{login}
-									</a>
-								</li>
-								<li>
-									<FaStar color='#ffeb3b' size={22} />{' '}
-									{stargazers_count.toLocaleString()} stars
-								</li>
-								<li>
-									<FaCodeBranch color='#7ac1f3' size={22} />{' '}
-									{forks.toLocaleString()} forks
-								</li>
-								<li>
-									<FaExclamationTriangle color='#ec7d7d' size={22} />{' '}
-									{open_issues.toLocaleString()} open issues
-								</li>
-							</ul>
+							<RepoProfile
+								login={login}
+								stars={stargazers_count}
+								forks={forks}
+								issues={open_issues}
+							/>
 						</Card>
 					</li>
 				);

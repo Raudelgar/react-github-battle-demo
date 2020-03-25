@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { battle } from '../../utils/api.js';
 import Loader from '../loader/Loader.js';
-import UserInfo from './UserInfo.js';
+import UserProfile from '../profiles/UserProfile.js';
+import Card from '../card/Card.js';
 
 export default class UserResult extends Component {
 	constructor(props) {
@@ -36,7 +37,7 @@ export default class UserResult extends Component {
 		const { winner, loser, error, loading } = this.state;
 		const winnerHeader =
 			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Winner') : '';
-		const LoserHeader =
+		const loserHeader =
 			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Loser') : '';
 		return (
 			<React.Fragment>
@@ -45,18 +46,26 @@ export default class UserResult extends Component {
 				{!error && !loading && (
 					<ul className='grid space-around'>
 						<li className='repo bg-light'>
-							<UserInfo
-								profile={winner.profile}
-								score={winner.score}
+							<Card
 								header={winnerHeader}
-							/>
+								avatar={winner.profile.avatar_url}
+								login={winner.profile.login}
+								url={winner.profile.html_url}
+								score={winner.score}
+							>
+								<UserProfile profile={winner.profile} />
+							</Card>
 						</li>
 						<li className='repo bg-light'>
-							<UserInfo
-								profile={loser.profile}
+							<Card
+								header={loserHeader}
+								avatar={loser.profile.avatar_url}
+								login={loser.profile.login}
+								url={loser.profile.html_url}
 								score={loser.score}
-								header={LoserHeader}
-							/>
+							>
+								<UserProfile profile={loser.profile} />
+							</Card>
 						</li>
 					</ul>
 				)}
