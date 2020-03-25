@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Card({ header, avatar, login, url, score }) {
+export default function Card({ header, avatar, login, url, score, children }) {
 	return (
 		<React.Fragment>
 			<h4 className='header-lg center-text'>{header}</h4>
@@ -12,6 +12,7 @@ export default function Card({ header, avatar, login, url, score }) {
 					{login}
 				</a>
 			</h2>
+			{children}
 		</React.Fragment>
 	);
 }
