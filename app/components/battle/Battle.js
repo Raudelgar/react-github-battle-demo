@@ -30,7 +30,18 @@ export default class Battle extends Component {
 	render() {
 		const { playerOne, playerTwo, battleMatch } = this.state;
 		if (battleMatch) {
-			return <UserResult users={[playerOne, playerTwo]} />;
+			return (
+				<UserResult
+					users={[playerOne, playerTwo]}
+					resetBattle={() =>
+						this.setState({
+							playerOne: null,
+							playerTwo: null,
+							battleMatch: false
+						})
+					}
+				/>
+			);
 		}
 
 		return (

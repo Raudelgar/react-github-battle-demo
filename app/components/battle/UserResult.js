@@ -44,30 +44,38 @@ export default class UserResult extends Component {
 				{loading && <Loader label='Loading' />}
 				{error && <p className='center-text error'>{error}</p>}
 				{!error && !loading && (
-					<ul className='grid space-around'>
-						<li className='repo bg-light'>
-							<Card
-								header={winnerHeader}
-								avatar={winner.profile.avatar_url}
-								login={winner.profile.login}
-								url={winner.profile.html_url}
-								score={winner.score}
-							>
-								<UserProfile profile={winner.profile} />
-							</Card>
-						</li>
-						<li className='repo bg-light'>
-							<Card
-								header={loserHeader}
-								avatar={loser.profile.avatar_url}
-								login={loser.profile.login}
-								url={loser.profile.html_url}
-								score={loser.score}
-							>
-								<UserProfile profile={loser.profile} />
-							</Card>
-						</li>
-					</ul>
+					<React.Fragment>
+						<ul className='grid space-around'>
+							<li className='repo bg-light'>
+								<Card
+									header={winnerHeader}
+									avatar={winner.profile.avatar_url}
+									login={winner.profile.login}
+									url={winner.profile.html_url}
+									score={winner.score}
+								>
+									<UserProfile profile={winner.profile} />
+								</Card>
+							</li>
+							<li className='repo bg-light'>
+								<Card
+									header={loserHeader}
+									avatar={loser.profile.avatar_url}
+									login={loser.profile.login}
+									url={loser.profile.html_url}
+									score={loser.score}
+								>
+									<UserProfile profile={loser.profile} />
+								</Card>
+							</li>
+						</ul>
+						<button
+							className='btn dark-btn btn-space'
+							onClick={this.props.resetBattle}
+						>
+							Reset
+						</button>
+					</React.Fragment>
 				)}
 			</React.Fragment>
 		);
@@ -75,5 +83,6 @@ export default class UserResult extends Component {
 }
 
 UserResult.propTypes = {
-	users: PropTypes.array.isRequired
+	users: PropTypes.array.isRequired,
+	resetBattle: PropTypes.func.isRequired
 };
