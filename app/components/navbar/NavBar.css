@@ -1,0 +1,18 @@
+.nav {
+	display: inline-block;
+	text-transform: capitalize;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.btn-clear {
+	border: none;
+	background-color: transparent;
+	outline: none;
+	border-radius: 0.2em;
+}
+
+.theme {
+	float: right;
+}

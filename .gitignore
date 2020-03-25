@@ -1,0 +1,7 @@
+node_modules
+
+#Mac Env
+.DS_Store
+
+#Producton
+dist

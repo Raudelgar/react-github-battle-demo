@@ -1,0 +1,105 @@
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.space-around {
+	justify-content: space-around;
+	margin-top: 40px;
+}
+
+.btn-clear {
+	border: none;
+	background-color: transparent;
+	outline: none;
+	border-radius: 0.2em;
+}
+
+.nav-link {
+	text-transform: capitalize;
+	font-size: 1rem;
+	font-weight: bold;
+	color: inherit;
+	cursor: pointer;
+}
+
+.nav-link:hover {
+	background-color: #cacacc;
+	color: #333;
+}
+
+.repo {
+	margin: 10px 0;
+	width: 250px;
+	padding: 20px;
+}
+
+.repo a {
+	text-decoration: none;
+}
+
+.repo img {
+	margin-bottom: 8px;
+}
+
+.bg-light {
+	background-color: #eaeaea;
+	border-radius: 0.2em;
+}
+
+.header-lg {
+	font-size: 1.2rem;
+	font-weight: 300;
+	margin: 20px;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.avatar {
+	width: 150px;
+	height: 150px;
+	border-radius: 0.2em;
+	margin: 0 auto;
+	display: block;
+}
+
+.link {
+	color: #c70d1e;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.card-list {
+	margin: 20px 0;
+	font-size: 1rem;
+}
+
+.card-list li {
+	display: flex;
+	align-items: center;
+	margin: 10px;
+}
+
+.card-list svg {
+	margin-right: 10px;
+}
+
+.card-list a {
+	text-decoration: none;
+	color: inherit;
+	font-weight: 500;
+}
+
+.error {
+	color: #ff1616;
+	font-size: 1, 1rem;
+	margin: 50px 0;
+}
