@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { battle } from '../../utils/api.js';
 import Loader from '../loader/Loader.js';
-import UserInfo from './UserInfo.js';
+import UserProfile from '../profiles/UserProfile.js';
+import Card from '../card/Card.js';
 
 export default class UserResult extends Component {
 	constructor(props) {
@@ -20,7 +22,6 @@ export default class UserResult extends Component {
 
 		battle(users)
 			.then(data => {
-				console.log(data);
 				this.setState({
 					winner: data[0],
 					loser: data[1],
@@ -34,28 +35,54 @@ export default class UserResult extends Component {
 	}
 	render() {
 		const { winner, loser, error, loading } = this.state;
-
+		const winnerHeader =
+			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Winner') : '';
+		const loserHeader =
+			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Loser') : '';
 		return (
 			<React.Fragment>
 				{loading && <Loader label='Loading' />}
 				{error && <p className='center-text error'>{error}</p>}
 				{!error && !loading && (
-					<ul className='grid space-around'>
-						<li className='repo bg-light'>
-							<h3 className='header-lg center-text'>
-								{winner.score === loser.score ? 'Tie' : 'Winner'}
-							</h3>
-							<UserInfo profile={winner.profile} score={winner.score} />
-						</li>
-						<li className='repo bg-light'>
-							<h3 className='header-lg center-text'>
-								{winner.score === loser.score ? 'Tie' : 'Loser'}
-							</h3>
-							<UserInfo profile={loser.profile} score={loser.score} />
-						</li>
-					</ul>
+					<React.Fragment>
+						<ul className='grid space-around'>
+							<li className='repo bg-light'>
+								<Card
+									header={winnerHeader}
+									avatar={winner.profile.avatar_url}
+									login={winner.profile.login}
+									url={winner.profile.html_url}
+									score={winner.score}
+								>
+									<UserProfile profile={winner.profile} />
+								</Card>
+							</li>
+							<li className='repo bg-light'>
+								<Card
+									header={loserHeader}
+									avatar={loser.profile.avatar_url}
+									login={loser.profile.login}
+									url={loser.profile.html_url}
+									score={loser.score}
+								>
+									<UserProfile profile={loser.profile} />
+								</Card>
+							</li>
+						</ul>
+						<button
+							className='btn dark-btn btn-space'
+							onClick={this.props.resetBattle}
+						>
+							Reset
+						</button>
+					</React.Fragment>
 				)}
 			</React.Fragment>
 		);
 	}
 }
+
+UserResult.propTypes = {
+	users: PropTypes.array.isRequired,
+	resetBattle: PropTypes.func.isRequired
+};
