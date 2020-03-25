@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { battle } from '../../utils/api.js';
 import Loader from '../loader/Loader.js';
@@ -20,7 +21,6 @@ export default class UserResult extends Component {
 
 		battle(users)
 			.then(data => {
-				console.log(data);
 				this.setState({
 					winner: data[0],
 					loser: data[1],
@@ -34,7 +34,10 @@ export default class UserResult extends Component {
 	}
 	render() {
 		const { winner, loser, error, loading } = this.state;
-
+		const winnerHeader =
+			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Winner') : '';
+		const LoserHeader =
+			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Loser') : '';
 		return (
 			<React.Fragment>
 				{loading && <Loader label='Loading' />}
@@ -42,16 +45,18 @@ export default class UserResult extends Component {
 				{!error && !loading && (
 					<ul className='grid space-around'>
 						<li className='repo bg-light'>
-							<h3 className='header-lg center-text'>
-								{winner.score === loser.score ? 'Tie' : 'Winner'}
-							</h3>
-							<UserInfo profile={winner.profile} score={winner.score} />
+							<UserInfo
+								profile={winner.profile}
+								score={winner.score}
+								header={winnerHeader}
+							/>
 						</li>
 						<li className='repo bg-light'>
-							<h3 className='header-lg center-text'>
-								{winner.score === loser.score ? 'Tie' : 'Loser'}
-							</h3>
-							<UserInfo profile={loser.profile} score={loser.score} />
+							<UserInfo
+								profile={loser.profile}
+								score={loser.score}
+								header={LoserHeader}
+							/>
 						</li>
 					</ul>
 				)}
@@ -59,3 +64,7 @@ export default class UserResult extends Component {
 		);
 	}
 }
+
+UserResult.propTypes = {
+	users: PropTypes.array.isRequired
+};

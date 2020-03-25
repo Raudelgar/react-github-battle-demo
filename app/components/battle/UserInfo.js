@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
 	FaUser,
 	FaCompass,
@@ -8,7 +9,9 @@ import {
 	FaCode
 } from 'react-icons/fa';
 
-export default function UserInfo({ profile, score }) {
+import Card from '../card/Card.js';
+
+export default function UserInfo({ profile, score, header }) {
 	const {
 		avatar_url,
 		login,
@@ -23,13 +26,13 @@ export default function UserInfo({ profile, score }) {
 
 	return (
 		<React.Fragment>
-			<img className='avatar' src={avatar_url} alt={`Avatar fro ${login}`} />
-			<h4 className='center-text'>Score: {score}</h4>
-			<h2 className='center-text'>
-				<a className='link' href={html_url} target='_blank'>
-					{login}
-				</a>
-			</h2>
+			<Card
+				header={header}
+				avatar={avatar_url}
+				login={login}
+				url={html_url}
+				score={score}
+			/>
 			<ul className='card-list'>
 				{name && (
 					<li>
@@ -62,3 +65,9 @@ export default function UserInfo({ profile, score }) {
 		</React.Fragment>
 	);
 }
+
+UserInfo.propTypes = {
+	profile: PropTypes.object.isRequired,
+	score: PropTypes.number,
+	header: PropTypes.string.isRequired
+};

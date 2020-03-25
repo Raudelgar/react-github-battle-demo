@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
 	FaUser,
 	FaStar,
@@ -6,18 +7,19 @@ import {
 	FaExclamationTriangle
 } from 'react-icons/fa';
 
+import Card from '../card/Card.js';
+
 export default function Repo({ index, repo }) {
 	const { owner, html_url, stargazers_count, forks, open_issues } = repo;
 	const { login, avatar_url } = owner;
 	return (
 		<React.Fragment>
-			<h4 className='header-lg center-text'>#{index}</h4>
-			<img className='avatar' src={avatar_url} alt={`Avatar fro ${login}`} />
-			<h2 className='center-text'>
-				<a className='link' href={html_url} target='_blank'>
-					{login}
-				</a>
-			</h2>
+			<Card
+				header={`#${index}`}
+				avatar={avatar_url}
+				login={login}
+				url={html_url}
+			/>
 			<ul className='card-list'>
 				<li>
 					<FaUser color='#ffc107' size={22} />{' '}
@@ -41,3 +43,8 @@ export default function Repo({ index, repo }) {
 		</React.Fragment>
 	);
 }
+
+Repo.propTypes = {
+	index: PropTypes.number.isRequired,
+	repo: PropTypes.object.isRequired
+};
