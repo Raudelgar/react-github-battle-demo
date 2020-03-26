@@ -9,7 +9,7 @@ import {
 	FaCode
 } from 'react-icons/fa';
 
-import Tooltip from '../../utils/Tooltip.js';
+import Tooltip from '../tooltips/Tooltip.js';
 
 export default function UserProfile({ profile }) {
 	const {

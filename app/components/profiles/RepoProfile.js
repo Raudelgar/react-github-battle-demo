@@ -7,7 +7,7 @@ import {
 	FaExclamationTriangle
 } from 'react-icons/fa';
 
-import Tooltip from '../../utils/Tooltip.js';
+import Tooltip from '../tooltips/Tooltip.js';
 
 export default function RepoProfile({ login, stars, forks, issues }) {
 	return (
