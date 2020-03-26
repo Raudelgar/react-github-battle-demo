@@ -5,8 +5,6 @@ import Players from './Players.js';
 import PlayerView from './PlayerView.js';
 import UserResult from './UserResult.js';
 
-import './Battle.css';
-
 export default class Battle extends Component {
 	constructor(props) {
 		super(props);

@@ -5,8 +5,6 @@ import Loader from '../loader/Loader.js';
 import ReposGrid from './ReposGrid.js';
 import { fetchPopularRepos } from '../../utils/api.js';
 
-import './Popular.css';
-
 export default class Popular extends Component {
 	constructor(props) {
 		super(props);
