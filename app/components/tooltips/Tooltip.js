@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withHover from '../../utils/withHover.js';
+// import withHover from '../../utils/withHover.js';
+import Hover from '../../utils/Hover.js';
 
-function Tooltip({ content = 'Tooltip Content', children, hover }) {
+export default function Tooltip({ content = 'Tooltip Content', children }) {
 	return (
-		<div className='tool-container'>
-			{hover && <div className='tooltip'>{content}</div>}
-			{children}
-		</div>
+		<Hover>
+			{hover => (
+				<div className='tool-container'>
+					{hover && <div className='tooltip'>{content}</div>}
+					{children}
+				</div>
+			)}
+		</Hover>
 	);
 }
 
@@ -16,4 +21,4 @@ Tooltip.propTypes = {
 	content: PropTypes.string
 };
 
-export default withHover(Tooltip, 'hover');
+// export default withHover(Tooltip, 'hover');
