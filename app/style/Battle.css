@@ -48,6 +48,11 @@
 	border-radius: 0.2em;
 }
 
+.bg-dark {
+	background-color: #333;
+	color: #eaeaea;
+}
+
 .column {
 	display: flex;
 	flex-direction: column;
@@ -81,6 +86,10 @@
 
 .player-inputs .input-light {
 	background-color: rgba(0, 0, 0, 0.02);
+}
+
+.player-inputs .input-dark {
+	background-color: rgba(250, 245, 245);
 }
 
 .player-inputs button {

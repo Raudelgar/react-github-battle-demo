@@ -5,6 +5,7 @@ import { battle } from '../../utils/api.js';
 import Loader from '../loader/Loader.js';
 import UserProfile from '../profiles/UserProfile.js';
 import Card from '../card/Card.js';
+import { ThemeContext } from '../theme/ThemeContext.js';
 
 export default class UserResult extends Component {
 	constructor(props) {
@@ -40,44 +41,48 @@ export default class UserResult extends Component {
 		const loserHeader =
 			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Loser') : '';
 		return (
-			<React.Fragment>
-				{loading && <Loader label='Battle' />}
-				{error && <p className='center-text error'>{error}</p>}
-				{!error && !loading && (
+			<ThemeContext.Consumer>
+				{theme => (
 					<React.Fragment>
-						<ul className='grid space-around'>
-							<li className='repo bg-light'>
-								<Card
-									header={winnerHeader}
-									avatar={winner.profile.avatar_url}
-									login={winner.profile.login}
-									url={winner.profile.html_url}
-									score={winner.score}
+						{loading && <Loader label='Battle' />}
+						{error && <p className='center-text error'>{error}</p>}
+						{!error && !loading && (
+							<React.Fragment>
+								<ul className='grid space-around'>
+									<li className={`repo ${theme}`}>
+										<Card
+											header={winnerHeader}
+											avatar={winner.profile.avatar_url}
+											login={winner.profile.login}
+											url={winner.profile.html_url}
+											score={winner.score}
+										>
+											<UserProfile profile={winner.profile} />
+										</Card>
+									</li>
+									<li className={`repo ${theme}`}>
+										<Card
+											header={loserHeader}
+											avatar={loser.profile.avatar_url}
+											login={loser.profile.login}
+											url={loser.profile.html_url}
+											score={loser.score}
+										>
+											<UserProfile profile={loser.profile} />
+										</Card>
+									</li>
+								</ul>
+								<button
+									className='btn dark-btn btn-space'
+									onClick={this.props.resetBattle}
 								>
-									<UserProfile profile={winner.profile} />
-								</Card>
-							</li>
-							<li className='repo bg-light'>
-								<Card
-									header={loserHeader}
-									avatar={loser.profile.avatar_url}
-									login={loser.profile.login}
-									url={loser.profile.html_url}
-									score={loser.score}
-								>
-									<UserProfile profile={loser.profile} />
-								</Card>
-							</li>
-						</ul>
-						<button
-							className='btn dark-btn btn-space'
-							onClick={this.props.resetBattle}
-						>
-							Reset
-						</button>
+									Reset
+								</button>
+							</React.Fragment>
+						)}
 					</React.Fragment>
 				)}
-			</React.Fragment>
+			</ThemeContext.Consumer>
 		);
 	}
 }
