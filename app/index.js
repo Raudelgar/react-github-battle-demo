@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { FaToggleOn, FaToggleOff } from 'react-icons/fa';
 
 import Popular from './components/popular/Popular.js';
 import NavBar from './components/navbar/NavBar.js';
@@ -27,13 +28,18 @@ class App extends Component {
 	}
 
 	render() {
+		const { light, theme } = this.state;
 		return (
 			<Router>
-				<div className={this.state.theme}>
+				<div className={theme}>
 					<div className='nav-container'>
 						<NavBar />
 						<button className='nav btn-clear theme' onClick={this.updateTheme}>
-							Theme
+							{light ? (
+								<FaToggleOff color='#1679ce' size={35} />
+							) : (
+								<FaToggleOn color='#dedee0' size={35} />
+							)}
 						</button>
 					</div>
 					<Switch>
