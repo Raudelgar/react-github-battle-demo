@@ -9,32 +9,53 @@ import Battle from './components/battle/Battle.js';
 import './index.css';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			theme: '',
+			light: true
+		};
+		this.updateTheme = this.updateTheme.bind(this);
+	}
+
+	updateTheme() {
+		if (this.state.light) {
+			this.setState({ theme: 'dark-theme', light: false });
+		} else {
+			this.setState({ theme: '', light: true });
+		}
+	}
+
 	render() {
 		return (
 			<Router>
-				<div className='nav-container'>
-					<NavBar />
-					<button className='nav btn-clear theme'>Theme</button>
+				<div className={this.state.theme}>
+					<div className='nav-container'>
+						<NavBar />
+						<button className='nav btn-clear theme' onClick={this.updateTheme}>
+							Theme
+						</button>
+					</div>
+					<Switch>
+						<Route
+							exact
+							path='/'
+							render={() => (
+								<div className='container'>
+									<Popular />
+								</div>
+							)}
+						/>
+						<Route
+							path='/battle'
+							render={() => (
+								<div className='container'>
+									<Battle />
+								</div>
+							)}
+						/>
+					</Switch>
 				</div>
-				<Switch>
-					<Route
-						exact
-						path='/'
-						render={() => (
-							<div className='container'>
-								<Popular />
-							</div>
-						)}
-					/>
-					<Route
-						path='/battle'
-						render={() => (
-							<div className='container'>
-								<Battle />
-							</div>
-						)}
-					/>
-				</Switch>
 			</Router>
 		);
 	}

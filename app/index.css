@@ -29,6 +29,11 @@ li {
 	list-style-type: none;
 }
 
+.dark-theme {
+	background-color: #333;
+	color: #fff;
+}
+
 .container,
 .nav-container {
 	max-width: 1200px;
