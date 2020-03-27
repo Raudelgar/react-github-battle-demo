@@ -1,3 +1,9 @@
+@import './style/Tooltip.css';
+@import './style/Loader.css';
+@import './style/Battle.css';
+@import './style/NavBar.css';
+@import './style/Popular.css';
+
 html,
 body,
 #app {
@@ -21,6 +27,11 @@ ul {
 
 li {
 	list-style-type: none;
+}
+
+.dark-theme {
+	background-color: #333;
+	color: #fff;
 }
 
 .container,

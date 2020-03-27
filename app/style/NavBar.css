@@ -11,6 +11,7 @@
 	background-color: transparent;
 	outline: none;
 	border-radius: 0.2em;
+	color: inherit;
 }
 
 .theme {

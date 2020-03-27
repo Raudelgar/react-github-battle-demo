@@ -41,7 +41,7 @@ export default class UserResult extends Component {
 			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Loser') : '';
 		return (
 			<React.Fragment>
-				{loading && <Loader label='Loading' />}
+				{loading && <Loader label='Battle' />}
 				{error && <p className='center-text error'>{error}</p>}
 				{!error && !loading && (
 					<React.Fragment>

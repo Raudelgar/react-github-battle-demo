@@ -9,6 +9,8 @@ import {
 	FaCode
 } from 'react-icons/fa';
 
+import Tooltip from '../tooltips/Tooltip.js';
+
 export default function UserProfile({ profile }) {
 	const {
 		name,
@@ -27,14 +29,18 @@ export default function UserProfile({ profile }) {
 				</li>
 			)}
 			{location && (
-				<li>
-					<FaCompass color='#823ff9' size={22} /> {location}
-				</li>
+				<Tooltip content="User's Location">
+					<li>
+						<FaCompass color='#823ff9' size={22} /> {location}
+					</li>
+				</Tooltip>
 			)}
 			{company && (
-				<li>
-					<FaBriefcase color='#795548' size={22} /> {company}
-				</li>
+				<Tooltip content="User's Company">
+					<li>
+						<FaBriefcase color='#795548' size={22} /> {company}
+					</li>
+				</Tooltip>
 			)}
 			<li>
 				<FaUsers color='#90d4f3' size={22} /> {followers.toLocaleString()}{' '}

@@ -7,16 +7,20 @@ import {
 	FaExclamationTriangle
 } from 'react-icons/fa';
 
+import Tooltip from '../tooltips/Tooltip.js';
+
 export default function RepoProfile({ login, stars, forks, issues }) {
 	return (
 		<React.Fragment>
 			<ul className='card-list'>
-				<li>
-					<FaUser color='#ffc107' size={22} />{' '}
-					<a href={`https://github.com/${login}`} target='_blank'>
-						{login}
-					</a>
-				</li>
+				<Tooltip content="Repo's username">
+					<li>
+						<FaUser color='#ffc107' size={22} />{' '}
+						<a href={`https://github.com/${login}`} target='_blank'>
+							{login}
+						</a>
+					</li>
+				</Tooltip>
 				<li>
 					<FaStar color='#ffeb3b' size={22} /> {stars.toLocaleString()} stars
 				</li>

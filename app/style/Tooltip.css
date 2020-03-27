@@ -1,0 +1,21 @@
+.tool-container {
+	position: relative;
+	/* display: flex; */
+	cursor: default;
+}
+
+.tooltip {
+	box-sizing: border-box;
+	position: absolute;
+	width: 160px;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -80px;
+	border-radius: 0.2em;
+	background-color: #2f2f2fe3;
+	padding: 7px;
+	margin-bottom: 5px;
+	color: #fff;
+	text-align: center;
+	font-size: 0.9rem;
+}
