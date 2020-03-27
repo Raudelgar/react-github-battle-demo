@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { ThemeContext } from '../theme/ThemeContext.js';
+
 export default class Players extends Component {
 	constructor(props) {
 		super(props);
@@ -24,29 +26,36 @@ export default class Players extends Component {
 
 	render() {
 		return (
-			<form className='column player' onSubmit={this.handleSubmit}>
-				<label htmlFor='username' className='player-label'>
-					{this.props.label}
-				</label>
-				<div className='row player-inputs'>
-					<input
-						type='text'
-						id='username'
-						className='input-light'
-						value={this.state.username}
-						placeholder='github username'
-						autoComplete='off'
-						onChange={this.handleUsernameInput}
-					/>
-					<button
-						type='submit'
-						className='btn dark-btn'
-						disabled={!this.state.username}
-					>
-						Submit
-					</button>
-				</div>
-			</form>
+			<ThemeContext.Consumer>
+				{theme => {
+					const bgInput = theme === 'bg-light' ? 'input-light' : 'input-dark';
+					return (
+						<form className='column player' onSubmit={this.handleSubmit}>
+							<label htmlFor='username' className='player-label'>
+								{this.props.label}
+							</label>
+							<div className='row player-inputs'>
+								<input
+									type='text'
+									id='username'
+									className={bgInput}
+									value={this.state.username}
+									placeholder='github username'
+									autoComplete='off'
+									onChange={this.handleUsernameInput}
+								/>
+								<button
+									type='submit'
+									className='btn dark-btn'
+									disabled={!this.state.username}
+								>
+									Submit
+								</button>
+							</div>
+						</form>
+					);
+				}}
+			</ThemeContext.Consumer>
 		);
 	}
 }

@@ -53,6 +53,11 @@
 	border-radius: 0.2em;
 }
 
+.bg-dark {
+	background-color: #333;
+	color: #eaeaea;
+}
+
 .header-lg {
 	font-size: 1.2rem;
 	font-weight: 300;
