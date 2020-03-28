@@ -12,9 +12,6 @@ export default function LanguagesNav({ selected, onUpdateLanguage }) {
 						className={`btn-clear nav-link ${
 							selected === lang ? 'selectedBtn' : ''
 						}`}
-						// style={{
-						// 	color: selected === lang ? '#9c1010' : ''
-						// }}
 						onClick={() => onUpdateLanguage(lang)}
 					>
 						{lang}

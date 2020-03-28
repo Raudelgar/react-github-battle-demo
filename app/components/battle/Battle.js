@@ -7,23 +7,18 @@ import { ThemeConsumer } from '../context/ThemeContext.js';
 import { Link } from 'react-router-dom';
 
 export default class Battle extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			playerOne: null,
-			playerTwo: null
-		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleResetUser = this.handleResetUser.bind(this);
-	}
+	state = {
+		playerOne: null,
+		playerTwo: null
+	};
 
-	handleSubmit(key, username) {
+	handleSubmit = (key, username) => {
 		this.setState({ [key]: username });
-	}
+	};
 
-	handleResetUser(key) {
+	handleResetUser = key => {
 		this.setState({ [key]: null });
-	}
+	};
 
 	render() {
 		const { playerOne, playerTwo } = this.state;

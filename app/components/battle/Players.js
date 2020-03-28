@@ -4,25 +4,25 @@ import PropTypes from 'prop-types';
 import { ThemeConsumer } from '../context/ThemeContext.js';
 
 export default class Players extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			username: ''
-		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleUsernameInput = this.handleUsernameInput.bind(this);
-	}
+	state = {
+		username: ''
+	};
 
-	handleUsernameInput(e) {
+	static propTypes = {
+		label: PropTypes.string.isRequired,
+		onSubmit: PropTypes.func.isRequired
+	};
+
+	handleUsernameInput = e => {
 		const value = e.target.value;
 		this.setState({ username: value });
-	}
+	};
 
-	handleSubmit(e) {
+	handleSubmit = e => {
 		e.preventDefault();
 		this.props.onSubmit(this.state.username);
 		this.setState({ username: '' });
-	}
+	};
 
 	render() {
 		return (
@@ -58,8 +58,3 @@ export default class Players extends Component {
 		);
 	}
 }
-
-Players.propTypes = {
-	label: PropTypes.string.isRequired,
-	onSubmit: PropTypes.func.isRequired
-};

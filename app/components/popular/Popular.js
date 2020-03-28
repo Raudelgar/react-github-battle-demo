@@ -6,18 +6,12 @@ import ReposGrid from './ReposGrid.js';
 import { fetchPopularRepos } from '../../utils/api.js';
 
 export default class Popular extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			selectedLanguage: 'all',
-			repos: {},
-			error: null
-		};
-		this.updateSelectedLanguage = this.updateSelectedLanguage.bind(this);
-		this.isLoading = this.isLoading.bind(this);
-	}
-
-	updateSelectedLanguage(newLang) {
+	state = {
+		selectedLanguage: 'all',
+		repos: {},
+		error: null
+	};
+	updateSelectedLanguage = newLang => {
 		const { repos } = this.state;
 		this.setState({
 			selectedLanguage: newLang,
@@ -40,16 +34,16 @@ export default class Popular extends Component {
 					});
 				});
 		}
-	}
+	};
 
 	componentDidMount() {
 		this.updateSelectedLanguage(this.state.selectedLanguage);
 	}
 
-	isLoading() {
+	isLoading = () => {
 		const { repos, error, selectedLanguage } = this.state;
 		return !repos[selectedLanguage] && !error;
-	}
+	};
 
 	render() {
 		const { selectedLanguage, repos, error } = this.state;
