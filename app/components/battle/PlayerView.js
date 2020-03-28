@@ -2,15 +2,15 @@ import React from 'react';
 import { FaTimesCircle } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
-import { ThemeContext } from '../theme/ThemeContext.js';
+import { ThemeConsumer } from '../context/ThemeContext.js';
 
 export default function PlayerView({ username, onReset, label }) {
 	return (
-		<ThemeContext.Consumer>
-			{theme => (
+		<ThemeConsumer>
+			{({ theme }) => (
 				<div className='column player'>
 					<h3 className='player-label'>{label}</h3>
-					<div className={`row ${theme}`}>
+					<div className={`row bg-${theme}`}>
 						<div className='player-info'>
 							<img
 								className='avatar-small'
@@ -35,7 +35,7 @@ export default function PlayerView({ username, onReset, label }) {
 					</div>
 				</div>
 			)}
-		</ThemeContext.Consumer>
+		</ThemeConsumer>
 	);
 }
 

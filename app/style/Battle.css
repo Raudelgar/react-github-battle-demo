@@ -49,8 +49,9 @@
 }
 
 .bg-dark {
-	background-color: #333;
+	background-color: #333333;
 	color: #eaeaea;
+	border-radius: 0.2em;
 }
 
 .column {
@@ -89,7 +90,8 @@
 }
 
 .player-inputs .input-dark {
-	background-color: rgba(250, 245, 245);
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #dadada;
 }
 
 .player-inputs button {
@@ -128,6 +130,16 @@
 .dark-btn:disabled {
 	background-color: #f2f2f2;
 	color: #c7c7c7;
+}
+
+.light-btn {
+	color: #141414;
+	background-color: #cecdcd;
+}
+
+.light-btn:disabled {
+	background-color: #292929;
+	color: #4a4a4a;
 }
 
 .btn-space {

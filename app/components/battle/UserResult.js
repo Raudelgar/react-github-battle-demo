@@ -5,7 +5,7 @@ import { battle } from '../../utils/api.js';
 import Loader from '../loader/Loader.js';
 import UserProfile from '../profiles/UserProfile.js';
 import Card from '../card/Card.js';
-import { ThemeContext } from '../theme/ThemeContext.js';
+import { ThemeConsumer } from '../context/ThemeContext.js';
 
 export default class UserResult extends Component {
 	constructor(props) {
@@ -41,15 +41,15 @@ export default class UserResult extends Component {
 		const loserHeader =
 			winner && loser ? (winner.score === loser.score ? 'Tie' : 'Loser') : '';
 		return (
-			<ThemeContext.Consumer>
-				{theme => (
+			<ThemeConsumer>
+				{({ theme }) => (
 					<React.Fragment>
 						{loading && <Loader label='Battle' />}
 						{error && <p className='center-text error'>{error}</p>}
 						{!error && !loading && (
 							<React.Fragment>
 								<ul className='grid space-around'>
-									<li className={`repo ${theme}`}>
+									<li className={`repo bg-${theme}`}>
 										<Card
 											header={winnerHeader}
 											avatar={winner.profile.avatar_url}
@@ -60,7 +60,7 @@ export default class UserResult extends Component {
 											<UserProfile profile={winner.profile} />
 										</Card>
 									</li>
-									<li className={`repo ${theme}`}>
+									<li className={`repo bg-${theme}`}>
 										<Card
 											header={loserHeader}
 											avatar={loser.profile.avatar_url}
@@ -73,7 +73,9 @@ export default class UserResult extends Component {
 									</li>
 								</ul>
 								<button
-									className='btn dark-btn btn-space'
+									className={`btn ${
+										theme === 'light' ? 'dark-btn' : 'light-btn'
+									} btn-space`}
 									onClick={this.props.resetBattle}
 								>
 									Reset
@@ -82,7 +84,7 @@ export default class UserResult extends Component {
 						)}
 					</React.Fragment>
 				)}
-			</ThemeContext.Consumer>
+			</ThemeConsumer>
 		);
 	}
 }

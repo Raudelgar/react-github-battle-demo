@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 
 // import withHover from '../../utils/withHover.js';
 import Hover from '../../utils/Hover.js';
+import { ThemeConsumer } from '../context/ThemeContext';
 
 export default function Tooltip({ content = 'Tooltip Content', children }) {
 	return (
-		<Hover>
-			{hover => (
-				<div className='tool-container'>
-					{hover && <div className='tooltip'>{content}</div>}
-					{children}
-				</div>
+		<ThemeConsumer>
+			{({ theme }) => (
+				<Hover>
+					{hover => (
+						<div className='tool-container'>
+							{hover && <div className={`${theme}-tooltip`}>{content}</div>}
+							{children}
+						</div>
+					)}
+				</Hover>
 			)}
-		</Hover>
+		</ThemeConsumer>
 	);
 }
 
