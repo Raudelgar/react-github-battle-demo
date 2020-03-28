@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Popular from './components/popular/Popular.js';
 import NavBar from './components/navbar/NavBar.js';
 import Battle from './components/battle/Battle.js';
+import UserResult from './components/battle/UserResult.js';
 import { ThemeProvider } from './components/context/ThemeContext.js';
 
 import './index.css';
@@ -29,28 +30,21 @@ class App extends Component {
 			<Router>
 				<ThemeProvider value={this.state}>
 					<div className={this.state.theme}>
-						<div className='nav-container'>
+						<div className='container'>
 							<NavBar />
+							<Switch>
+								<Route exact path='/' component={Popular} />
+								<Route exact path='/battle' component={Battle} />
+								<Route path='/battle/results' component={UserResult} />
+								<Route
+									render={() => (
+										<div className='header-lg center-text'>
+											<h2>404 - Page Not Found</h2>
+										</div>
+									)}
+								/>
+							</Switch>
 						</div>
-						<Switch>
-							<Route
-								exact
-								path='/'
-								render={() => (
-									<div className='container'>
-										<Popular />
-									</div>
-								)}
-							/>
-							<Route
-								path='/battle'
-								render={() => (
-									<div className='container'>
-										<Battle />
-									</div>
-								)}
-							/>
-						</Switch>
 					</div>
 				</ThemeProvider>
 			</Router>

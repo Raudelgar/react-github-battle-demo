@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import queryString from 'query-string';
 
 import { battle } from '../../utils/api.js';
 import Loader from '../loader/Loader.js';
@@ -19,9 +19,11 @@ export default class UserResult extends Component {
 	}
 
 	componentDidMount() {
-		const { users } = this.props;
+		const { playerOne, playerTwo } = queryString.parse(
+			this.props.location.search
+		);
 
-		battle(users)
+		battle([playerOne, playerTwo])
 			.then(data => {
 				this.setState({
 					winner: data[0],
@@ -76,7 +78,7 @@ export default class UserResult extends Component {
 									className={`btn ${
 										theme === 'light' ? 'dark-btn' : 'light-btn'
 									} btn-space`}
-									onClick={this.props.resetBattle}
+									onClick={() => this.props.history.goBack()}
 								>
 									Reset
 								</button>
@@ -88,8 +90,3 @@ export default class UserResult extends Component {
 		);
 	}
 }
-
-UserResult.propTypes = {
-	users: PropTypes.array.isRequired,
-	resetBattle: PropTypes.func.isRequired
-};

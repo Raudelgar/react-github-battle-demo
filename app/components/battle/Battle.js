@@ -3,16 +3,15 @@ import React, { Component } from 'react';
 import Instructions from './Instructions.js';
 import Players from './Players.js';
 import PlayerView from './PlayerView.js';
-import UserResult from './UserResult.js';
 import { ThemeConsumer } from '../context/ThemeContext.js';
+import { Link } from 'react-router-dom';
 
 export default class Battle extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			playerOne: null,
-			playerTwo: null,
-			battleMatch: false
+			playerTwo: null
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleResetUser = this.handleResetUser.bind(this);
@@ -27,22 +26,7 @@ export default class Battle extends Component {
 	}
 
 	render() {
-		const { playerOne, playerTwo, battleMatch } = this.state;
-		if (battleMatch) {
-			return (
-				<UserResult
-					users={[playerOne, playerTwo]}
-					resetBattle={() =>
-						this.setState({
-							playerOne: null,
-							playerTwo: null,
-							battleMatch: false
-						})
-					}
-				/>
-			);
-		}
-
+		const { playerOne, playerTwo } = this.state;
 		return (
 			<React.Fragment>
 				<Instructions />
@@ -77,14 +61,17 @@ export default class Battle extends Component {
 					{playerOne && playerTwo && (
 						<ThemeConsumer>
 							{({ theme }) => (
-								<button
+								<Link
+									to={{
+										pathname: 'battle/results',
+										search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+									}}
 									className={`btn ${
 										theme === 'light' ? 'dark-btn' : 'light-btn'
 									} btn-space`}
-									onClick={() => this.setState({ battleMatch: true })}
 								>
 									Battle
-								</button>
+								</Link>
 							)}
 						</ThemeConsumer>
 					)}
