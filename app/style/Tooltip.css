@@ -4,7 +4,7 @@
 	cursor: default;
 }
 
-.tooltip {
+.light-tooltip {
 	box-sizing: border-box;
 	position: absolute;
 	width: 160px;
@@ -16,6 +16,22 @@
 	padding: 7px;
 	margin-bottom: 5px;
 	color: #fff;
+	text-align: center;
+	font-size: 0.9rem;
+}
+
+.dark-tooltip {
+	box-sizing: border-box;
+	position: absolute;
+	width: 160px;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -80px;
+	border-radius: 0.2em;
+	background-color: #e6e6e6e3;
+	padding: 7px;
+	margin-bottom: 5px;
+	color: #131313;
 	text-align: center;
 	font-size: 0.9rem;
 }

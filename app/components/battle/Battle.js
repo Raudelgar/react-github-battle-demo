@@ -4,6 +4,7 @@ import Instructions from './Instructions.js';
 import Players from './Players.js';
 import PlayerView from './PlayerView.js';
 import UserResult from './UserResult.js';
+import { ThemeConsumer } from '../context/ThemeContext.js';
 
 export default class Battle extends Component {
 	constructor(props) {
@@ -74,12 +75,18 @@ export default class Battle extends Component {
 						)}
 					</div>
 					{playerOne && playerTwo && (
-						<button
-							className='btn dark-btn btn-space'
-							onClick={() => this.setState({ battleMatch: true })}
-						>
-							Battle
-						</button>
+						<ThemeConsumer>
+							{({ theme }) => (
+								<button
+									className={`btn ${
+										theme === 'light' ? 'dark-btn' : 'light-btn'
+									} btn-space`}
+									onClick={() => this.setState({ battleMatch: true })}
+								>
+									Battle
+								</button>
+							)}
+						</ThemeConsumer>
 					)}
 				</div>
 			</React.Fragment>

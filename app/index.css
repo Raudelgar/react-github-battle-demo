@@ -30,9 +30,10 @@ li {
 	list-style-type: none;
 }
 
-.dark-theme {
-	background-color: #565555;
-	color: #fff;
+.dark {
+	background-color: #1c2022;
+	color: #dadada;
+	min-height: 100%;
 }
 
 .container,
