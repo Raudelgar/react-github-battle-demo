@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Popular from './components/popular/Popular.js';
 import NavBar from './components/navbar/NavBar.js';
-import Battle from './components/battle/Battle.js';
-import UserResult from './components/battle/UserResult.js';
+// import Battle from './components/battle/Battle.js';
+const LazyBattle = lazy(() => import('./components/battle/Battle.js'));
+// import UserResult from './components/battle/UserResult.js';
+const LazyUserResult = lazy(() => import('./components/battle/UserResult.js'));
 import { ThemeProvider } from './components/context/ThemeContext.js';
+import Loader from './components/loader/Loader.js';
 
 import './index.css';
 
@@ -34,8 +37,10 @@ class App extends Component {
 							<NavBar />
 							<Switch>
 								<Route exact path='/' component={Popular} />
-								<Route exact path='/battle' component={Battle} />
-								<Route path='/battle/results' component={UserResult} />
+								<Suspense fallback={<Loader />}>
+									<Route exact path='/battle' component={LazyBattle} />
+									<Route path='/battle/results' component={LazyUserResult} />
+								</Suspense>
 								<Route
 									render={() => (
 										<div className='header-lg center-text'>
