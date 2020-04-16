@@ -1,6 +1,17 @@
+import { CLIENT_ID, CLIENT_SECRET } from '../../.env.js';
+
 const base_host = 'https://api.github.com';
-const id = 'YOUR_CLIENT_ID';
-const secrect = 'YOUR_SECRET_ID';
+const FETCH_OPTIONS = {
+	method: 'GET',
+	mode: 'cors',
+	headers: {
+		Accept: 'application/vnd.github.v3.full+json',
+		'Content-Type': 'application/json'
+		// 'Cache-Control': 'max-age=0, private, must-revalidate'
+	}
+};
+const id = CLIENT_ID ? CLIENT_ID : '';
+const secrect = CLIENT_SECRET ? CLIENT_SECRET : '';
 const params = `?client_id=${id}$client_secret=${secrect}`;
 
 export function fetchPopularRepos(language) {
@@ -8,7 +19,7 @@ export function fetchPopularRepos(language) {
 		`${base_host}/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
 	);
 
-	return fetch(encodeUrl)
+	return fetch(encodeUrl, FETCH_OPTIONS)
 		.then(res => res.json())
 		.then(data => {
 			if (!data.items) {
@@ -46,7 +57,7 @@ function getStarCount(repos) {
 }
 
 function getProfile(username) {
-	return fetch(`${base_host}/users/${username}${params}`)
+	return fetch(`${base_host}/users/${username}${params}`, FETCH_OPTIONS)
 		.then(res => res.json())
 		.then(data => {
 			if (data.messages) {
@@ -58,7 +69,10 @@ function getProfile(username) {
 }
 
 function getRepos(username) {
-	return fetch(`${base_host}/users/${username}/repos${params}&per_page=100`)
+	return fetch(
+		`${base_host}/users/${username}/repos${params}&per_page=100`,
+		FETCH_OPTIONS
+	)
 		.then(res => res.json())
 		.then(data => {
 			if (data.messages) {

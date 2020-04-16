@@ -5,3 +5,6 @@ node_modules
 
 #Producton
 dist
+
+#env 
+.env.js
