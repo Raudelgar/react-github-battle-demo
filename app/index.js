@@ -1,4 +1,4 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, lazy, Suspense, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
@@ -11,48 +11,38 @@ import Loader from './components/loader/Loader.js';
 
 import './index.css';
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			theme: 'light',
-			toggleTheme: () => {
-				this.setState(currState => {
-					return {
-						theme: currState.theme === 'light' ? 'dark' : 'light'
-					};
-				});
-			}
-		};
-	}
+function App() {
+	const [theme, setTheme] = useState('light');
 
-	render() {
-		return (
-			<Router>
-				<ThemeProvider value={this.state}>
-					<div className={this.state.theme}>
-						<div className='container'>
-							<NavBar />
-							<Switch>
-								<Route exact path='/' component={Popular} />
-								<Suspense fallback={<Loader />}>
-									<Route exact path='/battle' component={LazyBattle} />
-									<Route path='/battle/results' component={LazyUserResult} />
-								</Suspense>
-								<Route
-									render={() => (
-										<div className='header-lg center-text'>
-											<h2>404 - Page Not Found</h2>
-										</div>
-									)}
-								/>
-							</Switch>
-						</div>
+	const toggleTheme = () => {
+		setTheme(curr => (curr === 'light' ? 'dark' : 'light'));
+	};
+
+	return (
+		<Router>
+			<ThemeProvider value={{ theme, toggleTheme }}>
+				<div className={theme}>
+					<div className='container'>
+						<NavBar />
+						<Switch>
+							<Route exact path='/' component={Popular} />
+							<Suspense fallback={<Loader />}>
+								<Route exact path='/battle' component={LazyBattle} />
+								<Route path='/battle/results' component={LazyUserResult} />
+							</Suspense>
+							<Route
+								render={() => (
+									<div className='header-lg center-text'>
+										<h2>404 - Page Not Found</h2>
+									</div>
+								)}
+							/>
+						</Switch>
 					</div>
-				</ThemeProvider>
-			</Router>
-		);
-	}
+				</div>
+			</ThemeProvider>
+		</Router>
+	);
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
