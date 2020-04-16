@@ -6,7 +6,7 @@ import Popular from './components/popular/Popular.js';
 import NavBar from './components/navbar/NavBar.js';
 const LazyBattle = lazy(() => import('./components/battle/Battle.js'));
 const LazyUserResult = lazy(() => import('./components/battle/UserResult.js'));
-import { ThemeProvider } from './components/context/ThemeContext.js';
+import ThemeContext from './components/context/ThemeContext.js';
 import Loader from './components/loader/Loader.js';
 
 import './index.css';
@@ -20,7 +20,7 @@ function App() {
 
 	return (
 		<Router>
-			<ThemeProvider value={{ theme, toggleTheme }}>
+			<ThemeContext.Provider value={{ theme, toggleTheme }}>
 				<div className={theme}>
 					<div className='container'>
 						<NavBar />
@@ -40,7 +40,7 @@ function App() {
 						</Switch>
 					</div>
 				</div>
-			</ThemeProvider>
+			</ThemeContext.Provider>
 		</Router>
 	);
 }

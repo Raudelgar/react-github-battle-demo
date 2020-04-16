@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 // import withHover from '../../utils/withHover.js';
 import Hover from '../../utils/Hover.js';
-import { ThemeConsumer } from '../context/ThemeContext';
+import ThemeContext from '../context/ThemeContext';
 
 export default function Tooltip({ content = 'Tooltip Content', children }) {
+	const { theme } = useContext(ThemeContext);
 	return (
-		<ThemeConsumer>
-			{({ theme }) => (
-				<Hover>
-					{hover => (
-						<div className='tool-container'>
-							{hover && <div className={`${theme}-tooltip`}>{content}</div>}
-							{children}
-						</div>
-					)}
-				</Hover>
+		<Hover>
+			{hover => (
+				<div className='tool-container'>
+					{hover && <div className={`${theme}-tooltip`}>{content}</div>}
+					{children}
+				</div>
 			)}
-		</ThemeConsumer>
+		</Hover>
 	);
 }
 

@@ -1,9 +1,9 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useContext } from 'react';
 
 import Instructions from './Instructions.js';
 import Players from './Players.js';
 import PlayerView from './PlayerView.js';
-import { ThemeConsumer } from '../context/ThemeContext.js';
+import ThemeContext from '../context/ThemeContext.js';
 import { Link } from 'react-router-dom';
 
 function battleReducer(state, action) {
@@ -30,6 +30,7 @@ const initialState = {
 
 export default function Battle() {
 	const [state, dispatch] = useReducer(battleReducer, initialState);
+	const { theme } = useContext(ThemeContext);
 
 	const handleSubmit = (key, username) => {
 		dispatch({ type: 'submit', key, payload: username });
@@ -41,7 +42,7 @@ export default function Battle() {
 
 	const { playerOne, playerTwo } = state;
 	return (
-		<React.Fragment>
+		<>
 			<Instructions />
 			<div className='players-container'>
 				<h1 className='center-text header-lg'>Players</h1>
@@ -72,23 +73,19 @@ export default function Battle() {
 					)}
 				</div>
 				{playerOne && playerTwo && (
-					<ThemeConsumer>
-						{({ theme }) => (
-							<Link
-								to={{
-									pathname: 'battle/results',
-									search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
-								}}
-								className={`btn ${
-									theme === 'light' ? 'dark-btn' : 'light-btn'
-								} btn-space`}
-							>
-								Battle
-							</Link>
-						)}
-					</ThemeConsumer>
+					<Link
+						to={{
+							pathname: 'battle/results',
+							search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+						}}
+						className={`btn ${
+							theme === 'light' ? 'dark-btn' : 'light-btn'
+						} btn-space`}
+					>
+						Battle
+					</Link>
 				)}
 			</div>
-		</React.Fragment>
+		</>
 	);
 }
