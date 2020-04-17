@@ -1,62 +1,48 @@
-import React, { Component } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { ThemeConsumer } from '../context/ThemeContext.js';
+import ThemeContext from '../context/ThemeContext.js';
 
-export default class Players extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			username: ''
-		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleUsernameInput = this.handleUsernameInput.bind(this);
-	}
+export default function Players(props) {
+	const [username, setUsername] = useState('');
+	const { theme } = useContext(ThemeContext);
 
-	handleUsernameInput(e) {
+	const handleUsernameInput = e => {
 		const value = e.target.value;
-		this.setState({ username: value });
-	}
+		setUsername(value);
+	};
 
-	handleSubmit(e) {
+	const handleSubmit = e => {
 		e.preventDefault();
-		this.props.onSubmit(this.state.username);
-		this.setState({ username: '' });
-	}
+		props.onSubmit(username);
+		setUsername('');
+	};
 
-	render() {
-		return (
-			<ThemeConsumer>
-				{({ theme }) => (
-					<form className='column player' onSubmit={this.handleSubmit}>
-						<label htmlFor='username' className='player-label'>
-							{this.props.label}
-						</label>
-						<div className='row player-inputs'>
-							<input
-								type='text'
-								id='username'
-								className={`input-${theme}`}
-								value={this.state.username}
-								placeholder='github username'
-								autoComplete='off'
-								onChange={this.handleUsernameInput}
-							/>
-							<button
-								type='submit'
-								className={`btn ${
-									theme === 'light' ? 'dark-btn' : 'light-btn'
-								}`}
-								disabled={!this.state.username}
-							>
-								Submit
-							</button>
-						</div>
-					</form>
-				)}
-			</ThemeConsumer>
-		);
-	}
+	return (
+		<form className='column player' onSubmit={handleSubmit}>
+			<label htmlFor='username' className='player-label'>
+				{props.label}
+			</label>
+			<div className='row player-inputs'>
+				<input
+					type='text'
+					id='username'
+					className={`input-${theme}`}
+					value={username}
+					placeholder='github username'
+					autoComplete='off'
+					onChange={handleUsernameInput}
+				/>
+				<button
+					type='submit'
+					className={`btn ${theme === 'light' ? 'dark-btn' : 'light-btn'}`}
+					disabled={!username}
+				>
+					Submit
+				</button>
+			</div>
+		</form>
+	);
 }
 
 Players.propTypes = {
