@@ -11,28 +11,28 @@ function popularReducer(state, action) {
 			return {
 				...state,
 				selectedLanguage: action.payload,
-				error: null
+				error: null,
 			};
 		case 'resolve':
 			return {
 				...state,
 				repos: action.payload,
-				error: null
+				error: null,
 			};
 		case 'reject':
 			return {
 				...state,
-				error: action.payload
+				error: action.payload,
 			};
 		default:
-			return new Error();
+			return new Error(`The ${action.type} is not supported`);
 	}
 }
 
 const initialState = {
 	selectedLanguage: 'all',
 	repos: {},
-	error: null
+	error: null,
 };
 
 export default function Popular() {
@@ -42,22 +42,22 @@ export default function Popular() {
 		updateSelectedLanguage(state.selectedLanguage);
 	}, []);
 
-	const updateSelectedLanguage = newLang => {
+	const updateSelectedLanguage = (newLang) => {
 		const { repos } = state;
 		dispatch({ type: 'cache', payload: newLang });
 
 		if (!repos[newLang]) {
 			fetchPopularRepos(newLang)
-				.then(data => {
+				.then((data) => {
 					dispatch({
 						type: 'resolve',
-						payload: { ...state.repos, [newLang]: data }
+						payload: { ...state.repos, [newLang]: data },
 					});
 				})
-				.catch(error => {
+				.catch((error) => {
 					dispatch({
 						type: 'reject',
-						payload: 'There was an error fetching the reposotories'
+						payload: 'There was an error fetching the reposotories',
 					});
 				});
 		}

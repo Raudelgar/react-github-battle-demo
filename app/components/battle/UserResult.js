@@ -14,16 +14,16 @@ function userResultReducer(state, action) {
 				winner: action.payload.winner,
 				loser: action.payload.loser,
 				error: null,
-				loading: false
+				loading: false,
 			};
 		case 'reject':
 			return {
 				...state,
 				error: action.payload,
-				loading: false
+				loading: false,
 			};
 		default:
-			return new Error();
+			return new Error(`The ${action.type} is not supported`);
 	}
 }
 
@@ -31,7 +31,7 @@ const initalState = {
 	winner: null,
 	loser: null,
 	error: null,
-	loading: true
+	loading: true,
 };
 
 export default function UserResult(props) {
@@ -46,13 +46,13 @@ export default function UserResult(props) {
 		const { playerOne, playerTwo } = queryString.parse(props.location.search);
 
 		battle([playerOne, playerTwo])
-			.then(data => {
+			.then((data) => {
 				dispatch({
 					type: 'resolve',
 					payload: {
 						winner: data[0],
-						loser: data[1]
-					}
+						loser: data[1],
+					},
 				});
 			})
 			.catch(({ messages }) => dispatch({ type: 'reject', payload: messages }));

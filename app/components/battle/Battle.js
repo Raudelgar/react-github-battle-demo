@@ -11,21 +11,21 @@ function battleReducer(state, action) {
 		case 'submit':
 			return {
 				...state,
-				[action.key]: action.payload
+				[action.key]: action.payload,
 			};
 		case 'reset':
 			return {
 				...state,
-				[action.key]: null
+				[action.key]: null,
 			};
 		default:
-			return new Error();
+			return new Error(`The ${action.type} is not supported`);
 	}
 }
 
 const initialState = {
 	playerOne: null,
-	playerTwo: null
+	playerTwo: null,
 };
 
 export default function Battle() {
@@ -36,7 +36,7 @@ export default function Battle() {
 		dispatch({ type: 'submit', key, payload: username });
 	};
 
-	const handleResetUser = key => {
+	const handleResetUser = (key) => {
 		dispatch({ type: 'reset', key });
 	};
 
@@ -50,7 +50,7 @@ export default function Battle() {
 					{!playerOne ? (
 						<Players
 							label='Player One'
-							onSubmit={username => handleSubmit('playerOne', username)}
+							onSubmit={(username) => handleSubmit('playerOne', username)}
 						/>
 					) : (
 						<PlayerView
@@ -62,7 +62,7 @@ export default function Battle() {
 					{!playerTwo ? (
 						<Players
 							label='Player Two'
-							onSubmit={username => handleSubmit('playerTwo', username)}
+							onSubmit={(username) => handleSubmit('playerTwo', username)}
 						/>
 					) : (
 						<PlayerView
@@ -76,7 +76,7 @@ export default function Battle() {
 					<Link
 						to={{
 							pathname: 'battle/results',
-							search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+							search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
 						}}
 						className={`btn ${
 							theme === 'light' ? 'dark-btn' : 'light-btn'
