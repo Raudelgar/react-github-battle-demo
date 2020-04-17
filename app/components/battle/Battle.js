@@ -1,82 +1,91 @@
-import React, { Component } from 'react';
+import React, { useReducer, useContext } from 'react';
 
 import Instructions from './Instructions.js';
 import Players from './Players.js';
 import PlayerView from './PlayerView.js';
-import { ThemeConsumer } from '../context/ThemeContext.js';
+import ThemeContext from '../context/ThemeContext.js';
 import { Link } from 'react-router-dom';
 
-export default class Battle extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			playerOne: null,
-			playerTwo: null
-		};
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleResetUser = this.handleResetUser.bind(this);
+function battleReducer(state, action) {
+	switch (action.type) {
+		case 'submit':
+			return {
+				...state,
+				[action.key]: action.payload,
+			};
+		case 'reset':
+			return {
+				...state,
+				[action.key]: null,
+			};
+		default:
+			return new Error(`The ${action.type} is not supported`);
 	}
+}
 
-	handleSubmit(key, username) {
-		this.setState({ [key]: username });
-	}
+const initialState = {
+	playerOne: null,
+	playerTwo: null,
+};
 
-	handleResetUser(key) {
-		this.setState({ [key]: null });
-	}
+export default function Battle() {
+	const [state, dispatch] = useReducer(battleReducer, initialState);
+	const { theme } = useContext(ThemeContext);
 
-	render() {
-		const { playerOne, playerTwo } = this.state;
-		return (
-			<React.Fragment>
-				<Instructions />
-				<div className='players-container'>
-					<h1 className='center-text header-lg'>Players</h1>
-					<div className='row space-around'>
-						{!playerOne ? (
-							<Players
-								label='Player One'
-								onSubmit={username => this.handleSubmit('playerOne', username)}
-							/>
-						) : (
-							<PlayerView
-								label='Player One'
-								username={playerOne}
-								onReset={() => this.handleResetUser('playerOne')}
-							/>
-						)}
-						{!playerTwo ? (
-							<Players
-								label='Player Two'
-								onSubmit={username => this.handleSubmit('playerTwo', username)}
-							/>
-						) : (
-							<PlayerView
-								label='Player Two'
-								username={playerTwo}
-								onReset={() => this.handleResetUser('playerTwo')}
-							/>
-						)}
-					</div>
-					{playerOne && playerTwo && (
-						<ThemeConsumer>
-							{({ theme }) => (
-								<Link
-									to={{
-										pathname: 'battle/results',
-										search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
-									}}
-									className={`btn ${
-										theme === 'light' ? 'dark-btn' : 'light-btn'
-									} btn-space`}
-								>
-									Battle
-								</Link>
-							)}
-						</ThemeConsumer>
+	const handleSubmit = (key, username) => {
+		dispatch({ type: 'submit', key, payload: username });
+	};
+
+	const handleResetUser = (key) => {
+		dispatch({ type: 'reset', key });
+	};
+
+	const { playerOne, playerTwo } = state;
+	return (
+		<>
+			<Instructions />
+			<div className='players-container'>
+				<h1 className='center-text header-lg'>Players</h1>
+				<div className='row space-around'>
+					{!playerOne ? (
+						<Players
+							label='Player One'
+							onSubmit={(username) => handleSubmit('playerOne', username)}
+						/>
+					) : (
+						<PlayerView
+							label='Player One'
+							username={playerOne}
+							onReset={() => handleResetUser('playerOne')}
+						/>
+					)}
+					{!playerTwo ? (
+						<Players
+							label='Player Two'
+							onSubmit={(username) => handleSubmit('playerTwo', username)}
+						/>
+					) : (
+						<PlayerView
+							label='Player Two'
+							username={playerTwo}
+							onReset={() => handleResetUser('playerTwo')}
+						/>
 					)}
 				</div>
-			</React.Fragment>
-		);
-	}
+				{playerOne && playerTwo && (
+					<Link
+						to={{
+							pathname: 'battle/results',
+							search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+						}}
+						className={`btn ${
+							theme === 'light' ? 'dark-btn' : 'light-btn'
+						} btn-space`}
+					>
+						Battle
+					</Link>
+				)}
+			</div>
+		</>
+	);
 }

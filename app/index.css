@@ -56,3 +56,11 @@ li {
 		width: 1.2em;
 	}
 }
+
+@media (max-width: 400px) {
+	html,
+	.container,
+	.nav-container {
+		max-width: 375px;
+	}
+}

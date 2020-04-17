@@ -4,14 +4,14 @@ import {
 	FaUser,
 	FaStar,
 	FaCodeBranch,
-	FaExclamationTriangle
+	FaExclamationTriangle,
 } from 'react-icons/fa';
 
 import Tooltip from '../tooltips/Tooltip.js';
 
 export default function RepoProfile({ login, stars, forks, issues }) {
 	return (
-		<React.Fragment>
+		<>
 			<ul className='card-list'>
 				<Tooltip content="Repo's username">
 					<li>
@@ -33,7 +33,7 @@ export default function RepoProfile({ login, stars, forks, issues }) {
 					{issues.toLocaleString()} open issues
 				</li>
 			</ul>
-		</React.Fragment>
+		</>
 	);
 }
 
@@ -41,5 +41,5 @@ RepoProfile.propTypes = {
 	login: PropTypes.string.isRequired,
 	stars: PropTypes.number.isRequired,
 	forks: PropTypes.number.isRequired,
-	issues: PropTypes.number.isRequired
+	issues: PropTypes.number.isRequired,
 };

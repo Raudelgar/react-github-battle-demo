@@ -6,15 +6,12 @@ export default function LanguagesNav({ selected, onUpdateLanguage }) {
 
 	return (
 		<ul className='flex-center'>
-			{languages.map(lang => (
+			{languages.map((lang) => (
 				<li key={lang}>
 					<button
 						className={`btn-clear nav-link ${
 							selected === lang ? 'selectedBtn' : ''
 						}`}
-						// style={{
-						// 	color: selected === lang ? '#9c1010' : ''
-						// }}
 						onClick={() => onUpdateLanguage(lang)}
 					>
 						{lang}
@@ -27,5 +24,5 @@ export default function LanguagesNav({ selected, onUpdateLanguage }) {
 
 LanguagesNav.propTypes = {
 	selected: PropTypes.string.isRequired,
-	onUpdateLanguage: PropTypes.func.isRequired
+	onUpdateLanguage: PropTypes.func.isRequired,
 };
